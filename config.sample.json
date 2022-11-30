@@ -1,0 +1,6 @@
+{
+    "remote_path": "ssh://your_name@your_ip_address:your_port/your_path/",
+    "Windows_base_path": "your_Windows_path",
+    "wsl_base_path": "your_wsl_path",
+    "macOS_base_path": "your_macOS_path"
+}
