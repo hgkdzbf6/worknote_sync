@@ -100,7 +100,7 @@ class SyncService():
         # 比较日期
         latest_log_date = self._run('cd %s && git log --no-color -n1 --oneline' % (self.path_rep(self.git_path), ))
         print(latest_log_date)
-        y, m, d = [int(item) for item in latest_log_date[0].split(' ')[-3].split('-')]
+        y, m, d = [int(item) for item in latest_log_date[0].split(' ')[-6].split('-')]
         ny, nm, nd = self.date.year, self.date.month, self.date.day
         if ny != y or nm != m or nd != d:
             # 需要重新搞一个commit出来
@@ -113,7 +113,10 @@ class SyncService():
             self._copy(self.content_path, self.git_path)
             self._run('cd %s && git add . && git commit -m "%s daily upload, upload by %s"' %
                 (self.path_rep(self.git_path), self.today, self.sys_str))
-            
+        
+        self._run('cd %s && git remote remove origin' % (self.path_rep(self.git_path)))
+        self._run('cd %s && git remote add origin %s' % (self.path_rep(self.git_path),
+            self.remote_path))
         self._run('cd %s && git pull origin master' % (self.path_rep(self.git_path)))
         return 0
 
@@ -130,5 +133,5 @@ class SyncService():
 
 if __name__ == '__main__':
     ss = SyncService()
-    # ss.push()
+    ss.push()
     # ss.pull()
