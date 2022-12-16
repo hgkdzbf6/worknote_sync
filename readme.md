@@ -12,3 +12,9 @@
 ```
 
 将他重命名为config.json，即可使用。
+
+使用方法：
+
+执行`python3 run.py -d`下载数据，也就是相当于pull
+执行`python3 run.py -u`上传数据，也就是相当于push
+

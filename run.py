@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import datetime
 import json
+import argparse
 
 class SyncService():
     def __init__(self) -> None:
@@ -131,7 +132,19 @@ class SyncService():
         # 复制git当中的到目标位置
         self._copy(self.git_path, self.content_path)
 
-if __name__ == '__main__':
+
+def main():
     ss = SyncService()
-    ss.push()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--download", help="download data", action="store_true")
+    parser.add_argument("-u", "--upload", help="upload data", action="store_true")
+    args = parser.parse_args()
+    print(args)
+    if args.download:
+        ss.pull()
+    elif args.upload:
+        ss.push()
+
+if __name__ == '__main__':
     # ss.pull()
+    main()
